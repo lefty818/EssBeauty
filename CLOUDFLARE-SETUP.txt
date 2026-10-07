@@ -1,0 +1,98 @@
+ESSENTIAL BEAUTY WEBSITE - CLOUDFLARE PAGES SETUP GUIDE
+=======================================================
+
+The website is set up to build as plain static files (a folder called "out")
+that Cloudflare Pages hosts for free. Cloudflare's free plan allows business use.
+
+Your only ongoing cost is your yearly domain renewal for essentialbeauty.biz.
+
+Before you start: download a fresh ZIP of the project from v0 (three dots in
+the top right > Download ZIP). Older downloads are from before the site was
+converted for Cloudflare.
+
+
+-------------------------------------------------------
+OPTION A: THROUGH GITHUB (RECOMMENDED, NO SOFTWARE NEEDED)
+-------------------------------------------------------
+This route means any future edits made in v0 go live on their own.
+
+1. In v0, open Settings (top right), then Git, and connect a GitHub
+   repository. Create a free account at github.com if you don't have one.
+
+2. Create a free account at https://dash.cloudflare.com
+
+3. In Cloudflare, go to:
+   Workers & Pages > Create > Pages tab > Connect to Git
+   Then choose your repository.
+
+4. Under build settings, enter:
+     Framework preset:        None
+     Build command:           npx next build
+     Build output directory:  out
+
+   Under "Environment variables", add:
+     Variable name:  NODE_VERSION
+     Value:          22
+
+5. Click "Save and Deploy".
+   After a minute or two the site will be live at an address like:
+   essential-beauty.pages.dev
+
+
+-------------------------------------------------------
+OPTION B: DRAG-AND-DROP UPLOAD
+-------------------------------------------------------
+This needs Node.js installed on your computer (free from https://nodejs.org).
+
+1. Unzip the project and open a terminal (Command Prompt on Windows,
+   Terminal on Mac) in that folder.
+
+2. Run these two commands, one after the other:
+     npm install
+     npx next build
+
+   This creates a folder called "out".
+
+3. In Cloudflare, go to:
+   Workers & Pages > Create > Pages tab > Upload assets
+
+4. Give the project a name, then drag the "out" folder in and click Deploy.
+
+Note: with this option you must repeat steps 2 to 4 each time the site
+is changed.
+
+
+-------------------------------------------------------
+USING YOUR OWN DOMAIN (essentialbeauty.biz)
+-------------------------------------------------------
+1. In your Cloudflare Pages project, open "Custom domains", then
+   "Set up a custom domain", and enter:
+     essentialbeauty.biz
+
+   Repeat for:
+     www.essentialbeauty.biz
+
+2. Cloudflare will show you DNS records to add. Either:
+   - add them at the company you bought your domain from, or
+   - move the domain's nameservers to Cloudflare (Cloudflare will
+     walk you through this).
+
+3. The free padlock (SSL certificate) is set up automatically,
+   usually within an hour.
+
+
+-------------------------------------------------------
+OPTIONAL: VISITOR STATISTICS
+-------------------------------------------------------
+For free visitor stats, turn on Web Analytics in the Cloudflare dashboard
+for your Pages project. No changes to the website are needed.
+
+
+-------------------------------------------------------
+GOOD TO KNOW
+-------------------------------------------------------
+- The map and "Get directions" button work without any API keys.
+- The security headers are in the file "public/_headers", which
+  Cloudflare reads automatically.
+- If you need help, Cloudflare's guide is at:
+  https://developers.cloudflare.com/pages/
